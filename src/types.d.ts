@@ -1,5 +1,3 @@
-export type Weather = 'sunny' | 'rainy' | 'cloudy' | 'windy' | 'stormy'
-export type Visibility = 'great' | 'good' | 'ok' | 'poor'
 
 export interface DiaryEntry{
     id: number,
@@ -16,3 +14,5 @@ export type NonSensitiveInfoDiaryEntry = Pick<NonSensitiveInfoDiaryEntry, 'id' |
 
 //se extiende de la interfaz DiaryEntry y se omite el campo comment
 export type NonSensitiveInfoDiaryEntry = Omit<DiaryEntry, 'comment'>
+
+export type NewDiaryEntry = Omit<DiaryEntry, 'id'>

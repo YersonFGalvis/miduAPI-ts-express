@@ -1,6 +1,7 @@
 import express from 'express'; //ESmodules
 //const express = require('express'); -> commongjs
 import * as diaryServices from '../services/diary'
+import toNewDiaryEntry from '../utils';
 
 const router = express.Router();
 
@@ -22,8 +23,22 @@ router.get('/:id', (req, res) => {
 
 
 
-router.post('/', (_req, res) => {
- res.send('saving a diaries...');
+router.post('/', (req, res) => {
+    try {
+         const newDiaryEntry = toNewDiaryEntry(req.body);
+
+        const addedDiaryEntry = diaryServices.addDiary(newDiaryEntry)
+       
+        res.json(addedDiaryEntry)
+    } catch (err) {
+        if (err instanceof Error) {
+          // ✅ TypeScript knows err is Error
+          res.status(400).send(err.message)
+        } else {
+          console.log('Unexpected error', err);
+        }
+      }
+
 });
 
 export default router
